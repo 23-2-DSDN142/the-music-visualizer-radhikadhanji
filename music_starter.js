@@ -5,12 +5,38 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textFont('Helvetica'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
-
-  ellipse(width/3, height/3, 100 + drum, 100 + drum);
-
   
- 
+  let lightOrange = color(255, 243, 176);
+  let lightBlue = color(157, 171, 235); //colours for base
 
+  let lightLerpMap = map(bass, 0, 100, 0, 1);
+  let moonBaseCol = lerpColor(lightOrange, lightBlue, lightLerpMap); //lerpmap of base colours
+
+  let darkOrange = color(227, 198, 145);
+  let darkBlue = color(110, 127, 204); //colours for shading
+
+  let darkLerpMap = map(bass, 0, 100, 0, 1);
+  let shadingCol = lerpColor(darkOrange, darkBlue, darkLerpMap); //lerpmap of shaded colours
+
+  var moonSize = map(vocal, 0, 100, 150, 300);
+  var moonHeight = map(drum, 0, 100, 0+moonSize/2, height - moonSize*2);
+
+
+  moon(250, moonHeight, moonSize, moonBaseCol, shadingCol); //moon function with colours
+
+
+
+}
+
+function moon(x, y, moonWidth, moonCol, moonShading){
+  noStroke();
+  fill(moonCol);
+  
+  ellipse(x, y, moonWidth, moonWidth); //base
+
+  fill(moonShading);
+  ellipse(x - moonWidth/6, y + moonWidth/5.5, moonWidth/2, moonWidth/3); //big shading
+  ellipse(x - moonWidth/x, y + moonWidth/2.5, moonWidth/6, moonWidth/9); //little shading
 
 }
 

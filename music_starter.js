@@ -18,11 +18,35 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let darkLerpMap = map(bass, 0, 100, 0, 1);
   let shadingCol = lerpColor(darkOrange, darkBlue, darkLerpMap); //lerpmap of shaded colours
 
-  var moonSize = map(vocal, 0, 100, 150, 300);
+  var moonSize = map(vocal, 0, 25, 40, 50);
   var moonHeight = map(drum, 0, 100, 0+moonSize/2, height - moonSize*2);
 
+  for(let i = 1; i <= 5; i++){
+    //Creates 5 moons on the screen
+    if((i ==2) || (i == 4)){
+      //If i is even, place it lower down
+      moonHeight = moonHeight + 50;
+    }
+    else{
+      //If i is odd, place it higher up
+      moonHeight = moonHeight - 50;
+    }
 
-  moon(250, moonHeight, moonSize, moonBaseCol, shadingCol); //moon function with colours
+    //Draws moon 5 times with x spaced out depending on which moon is drawn
+    moon(250 + ( i * 100) , moonHeight, moonSize, moonBaseCol, shadingCol); 
+
+  }
+
+  for(let iii = 1; iii < 7; iii++){
+    let yStep = iii * 50;
+    for(let ii = 1; ii <= 7; ii++){
+      moonBaseCol.setAlpha(50 + (ii * 20)/1000);
+      moon(50 * ii, yStep, 500, moonBaseCol, shadingCol);
+    }
+  }
+
+  
+
 
 
 
@@ -39,6 +63,8 @@ function moon(x, y, moonWidth, moonCol, moonShading){
   ellipse(x - moonWidth/x, y + moonWidth/2.5, moonWidth/6, moonWidth/9); //little shading
 
 }
+
+
 
 //  let bar_spacing = height / 10;
   //  let bar_height = width / 12;

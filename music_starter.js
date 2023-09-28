@@ -40,8 +40,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   for(let iii = 1; iii < 7; iii++){
     let yStep = iii * 50;
     for(let ii = 1; ii <= 7; ii++){
-      moonBaseCol.setAlpha(50 + (ii * 20)/1000);
-      moon(50 * ii, yStep, 500, moonBaseCol, shadingCol);
+      moonBaseCol.setAlpha(1 + (ii * 20)/1000);
+      shadingCol.setAlpha(1 + (ii * 20)/1000);
+      moon(100 * ii, yStep, 500, moonBaseCol, shadingCol);
     }
   }
 

@@ -1,3 +1,5 @@
+let windows = [];
+
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -6,34 +8,36 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rectMode(CENTER)
   textSize(24);
 
-  noFill();
-  strokeWeight(2);
-  stroke(255, 212, 84);
+  //Objects section
+  class BrowserWindow{
+    constructor(name, height, width, x, y){
+      this.name = name;
+      this.height = height;
+      this.width = width;
+      this.x = x;
+      this.y = y;
 
-  for(let i = 6; i > 0; i--){
-    if(i < 6){
-      circle(canvasWidth/2, canvasHeight/2, bass + (100 * i * 2));
+      this.pinkMode = false;
+      this.mainCol = mainCol;
+      this.upBarCol = upBarCol;
+
+      if(pinkMode){
+        //Pink browser window
+        mainCol = color(255, 157, 233);
+        upBarCol = color(244, 66, 211);
+      }
+      else{
+        //Purple browser window
+        mainCol = color(196, 75, 212);
+        upBarCol = color(164, 29, 179);
+      }
+
+    } 
+
+    display(){
+      //Displays the browser window.
     }
-    else{
-      circle(canvasWidth/2, canvasHeight/2, bass + 900);
 
-    }
-  }
-
-  let starSize = map(bass, 0, 25, 40, 50);
-  let yellow = color(255, 212, 84);
-
-    star(canvasWidth/2 - starSize/3, canvasHeight/2 - starSize/3, yellow);
-
-  function star(x, y, starCol){
-    noStroke();
-    fill(starCol);
-
-    triangle(x, y, x + 28, y - 55, x + 56, y); //top
-    square(x + 28, y + 22, y /6.3); //middle
-    triangle(x, y, x - 28, y + 55, x - 56, y); //bottom
-    triangle();
-    triangle();
 
   }
   
@@ -98,5 +102,36 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 //   ellipse(x - moonWidth/6, y + moonWidth/5.5, moonWidth/2, moonWidth/3); //big shading
 //   ellipse(x - moonWidth/x, y + moonWidth/2.5, moonWidth/6, moonWidth/9); //little shading
 
+
+//noFill();
+  // strokeWeight(2);
+  // stroke(255, 212, 84);
+
+  // for(let i = 6; i > 0; i--){
+  //   if(i < 6){
+  //     circle(canvasWidth/2, canvasHeight/2, bass + (100 * i * 2));
+  //   }
+  //   else{
+  //     circle(canvasWidth/2, canvasHeight/2, bass + 900);
+
+  //   }
+  // }
+
+  // let starSize = map(bass, 0, 25, 40, 50);
+  // let yellow = color(255, 212, 84);
+
+  //   star(canvasWidth/2 - starSize/3, canvasHeight/2 - starSize/3, yellow);
+
+  // function star(x, y, starCol){
+  //   noStroke();
+  //   fill(starCol);
+
+  //   triangle(x, y, x + 28, y - 55, x + 56, y); //top
+  //   square(x + 28, y + 22, y /6.3); //middle
+  //   triangle(x, y, x - 28, y + 55, x - 56, y); //bottom
+  //   triangle();
+  //   triangle();
+
+  // }
 
 

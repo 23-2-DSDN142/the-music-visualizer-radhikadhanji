@@ -16,20 +16,19 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       this.width = width;
       this.x = x;
       this.y = y;
+      this.mainCol;
+      this.pinkMode = true;
+      this.upBarCol;
 
-      this.pinkMode = false;
-      this.mainCol = mainCol;
-      this.upBarCol = upBarCol;
-
-      if(pinkMode){
+      if(this.pinkMode){
         //Pink browser window
-        mainCol = color(255, 157, 233);
-        upBarCol = color(244, 66, 211);
+        this.mainCol = color(255, 157, 233);
+        this.upBarCol = color(244, 66, 211);
       }
       else{
         //Purple browser window
-        mainCol = color(196, 75, 212);
-        upBarCol = color(164, 29, 179);
+        this.mainCol = color(196, 75, 212);
+        this.upBarCol = color(164, 29, 179);
       }
 
     } 
@@ -38,30 +37,30 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       //Displays the browser window.
       if(this.name == 'Popup'){
         //Makes a popup
-        fill(mainCol);
-        stroke(upBarCol);
+        fill(this.mainCol);
+        stroke(this.upBarCol);
         rect(this.x, this.y, this.width, this.height, 10, 10, 10, 10);
 
         //Top bar
-        fill(upBarCol);
-        rect(this.x, this.y, this.width, this.height/5, 10, 10, 0, 0);
+        fill(this.upBarCol);
+        rect(this.x, this.y - (this.height/2), this.width, this.height/3, 10, 10, 0, 0);
 
         //Makes the button
         noFill();
-        rect(this.x + (this.x/2), this.y + (this.y/2), this.width/10, this.height/10);
+        rect(this.x, this.y + (this.y/5), this.width/4, this.height/5);
 
       }
       else{
         //Main base of window
-        fill(mainCol);
-        stroke(upBarCol);
+        fill(this.mainCol);
+        stroke(this.upBarCol);
         rect(this.x, this.y, this.width, this.height);
 
         //Top bar
-        fill(upBarCol);
-        rect(this.x, this.y, this.width, this.height/5);
+        fill(this.upBarCol);
+        rect(this.x, this.y-(this.height/2), this.width, this.height/4);
 
-        fill(mainCol);
+        fill(this.mainCol);
         for(let i = 0; i > 2; i++){
           //Draw the three squares in the top right corner
           square(this.x + (i * 0.5), this.y + 10, this.width/6);
@@ -73,12 +72,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
         //   //Adds the sky display to the window
         // }
 
+        // else if(this.name == 'BarDisplay'){
+          //Adds the bar display to the window, mapped to one of the channels
+        //}
+
       }
     }
   }
 
-  let b = new BrowserWindow('First', 200, 100, 20, 20);
+  let b = new BrowserWindow('Popup', 200, 300, 200, 200);
   b.display();
+  let f = new BrowserWindow('Other', 100, 200, 400, 400);
+  f.display();
 
  }
 

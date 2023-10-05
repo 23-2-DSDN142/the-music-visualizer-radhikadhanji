@@ -3,7 +3,8 @@ let windows = [];
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  background(46, 21, 45)
+  //Make a background gradient pretty please
+  background(104, 11, 154)
   textFont('Helvetica'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
@@ -33,6 +34,16 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
     } 
 
+    setState(){
+      //Sets the pinkMode state of browser windows
+      if(this.pinkMode == true){
+        this.pinkMode = false;
+      }
+      else{
+        this.pinkMode = true;
+      }
+    }
+
     display(){
       //Displays the browser window.
       if(this.name == 'Popup'){
@@ -47,7 +58,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
         //Makes the button
         noFill();
-        rect(this.x, this.y + (this.y/5), this.width/4, this.height/5);
+        rect(this.x, this.y + (this.height/5), this.width/4, this.height/5);
 
       }
       else{
@@ -62,8 +73,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
         fill(this.mainCol);
         for(let i = 0; i > 2; i++){
-          //Draw the three squares in the top right corner
-          square(this.x + (i * 0.5), this.y + 10, this.width/6);
+          //Draw the three squares in the top right corner (WIP)
+          square(this.x + 200, this.y, this.width);
         }
 
         //Specifying which windows are on the screen
@@ -84,6 +95,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   b.display();
   let f = new BrowserWindow('Other', 100, 200, 400, 400);
   f.display();
+
+  let one = new BrowserWindow('Popup', 100, 200, canvasWidth/2, canvasHeight/2);
+  one.display();
+ 
 
  }
 

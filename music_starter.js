@@ -131,6 +131,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
         else if (this.name == 'ChatDisplay'){
           //Adds the chat display to the window, mapped to one of the channels
+          noStroke();
+          fill(247, 126, 213);
+          rect(this.x - this.width/2.52, this.y + 8, this.width/5, this.height - 20);
         }
 
         //some other stuff MAYBE I love the hit song inandesu by the hit secret music circle nightcord at 25:00

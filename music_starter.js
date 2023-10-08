@@ -113,13 +113,13 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
           vertex(this.x, this.y + this.height/2 - 50);
           bezierVertex(this.x + this.width/2, 300, this.x + 50, this.y - this.width/2 + 50, this.x, this.y -50 ); //right side of heart
           vertex(this.x, this.y + this.height/2 - 50);
-          bezierVertex(this.x - this.width/2, 300, this.x - 50, this.y - this.width/2 + 50, this.x, this.y - 50);
+          bezierVertex(this.x - this.width/2, 300, this.x - 50, this.y - this.width/2 + 50, this.x, this.y - 50); //left side of heart
 
           endShape();
 
           stroke(0);
           noFill();
-          line(this.x, this.y + this.height/2 - 60, this.x, this.y - 40);
+          line(this.x, this.y + this.height/2 - 60, this.x, this.y - 40); //fills in the gaps
 
         }
 
@@ -135,9 +135,16 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   let heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
   heart.display();
-  
-
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
+
+  let bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
+  bar.display();
+
+  let chat = new BrowserWindow('ChatDisplay', 200, 300, canvasWidth - 200, canvasHeight - 350);
+  chat.display();
+
+  let sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
+  sky.display();
 
 
   

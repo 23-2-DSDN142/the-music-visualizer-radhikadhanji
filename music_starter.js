@@ -99,20 +99,33 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
           //Adds the sky display to the window
         }
 
-        // else if(this.name == 'BarDisplay'){
+        else if(this.name == 'BarDisplay'){
           //Adds the bar display to the window, mapped to one of the channels
-        //}
+        }
 
         else if (this.name == 'HeartDisplay'){
           //Adds the heart display to the window, mapped to the channels
+          stroke(255);
+          fill(0);
+          strokeWeight(7);
           beginShape();
+
+          vertex(this.x, this.y + this.height/2 - 50);
+          bezierVertex(this.x + this.width/2, 300, this.x + 50, this.y - this.width/2 + 50, this.x, this.y -50 ); //right side of heart
+          vertex(this.x, this.y + this.height/2 - 50);
+          bezierVertex(this.x - this.width/2, 300, this.x - 50, this.y - this.width/2 + 50, this.x, this.y - 50);
+
           endShape();
+
+          stroke(0);
+          noFill();
+          line(this.x, this.y + this.height/2 - 60, this.x, this.y - 40);
 
         }
 
-        //else if (this.name == 'ChatDisplay'){
+        else if (this.name == 'ChatDisplay'){
           //Adds the chat display to the window, mapped to one of the channels
-        //}
+        }
 
         //some other stuff MAYBE I love the hit song inandesu by the hit secret music circle nightcord at 25:00
 

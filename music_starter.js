@@ -84,17 +84,20 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
         //Specifying which windows are on the screen
 
-        // if(this.name == 'SkyDisplay'){
-        //   //Adds the sky display to the window
-        // }
+        if(this.name == 'SkyDisplay'){
+          //Adds the sky display to the window
+        }
 
         // else if(this.name == 'BarDisplay'){
           //Adds the bar display to the window, mapped to one of the channels
         //}
 
-        //else if (this.name == 'HeartDisplay'){
+        else if (this.name == 'HeartDisplay'){
           //Adds the heart display to the window, mapped to the channels
-        //}
+          beginShape();
+          endShape();
+
+        }
 
         //else if (this.name == 'ChatDisplay'){
           //Adds the chat display to the window, mapped to one of the channels

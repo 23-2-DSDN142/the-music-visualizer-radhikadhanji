@@ -50,31 +50,38 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
         //Makes a popup
         fill(this.mainCol);
         stroke(this.upBarCol);
+        strokeWeight(3);
         rect(this.x, this.y, this.width, this.height, 10, 10, 10, 10);
 
         //Top bar
         fill(this.upBarCol);
-        rect(this.x, this.y - (this.height/2), this.width, this.height/3, 10, 10, 0, 0);
+        rect(this.x, this.y - (this.height/2), this.width, this.height/4, 10, 10, 0, 0);
 
         //Makes the button
         noFill();
-        rect(this.x, this.y + (this.height/5), this.width/4, this.height/5);
+        strokeWeight(1);
+        rect(this.x, this.y + (this.height/5), this.width/2.5, this.height/5, 10, 10, 10, 10);
+        fill(this.upBarCol);
+        text('OK', this.x + this.x/10, this.y + (this.height/4.5), this.width/4, this.height/5);
 
       }
       else{
         //Main base of window
         fill(this.mainCol);
         stroke(this.upBarCol);
+        strokeWeight(3);
         rect(this.x, this.y, this.width, this.height);
+        strokeWeight(1);
 
         //Top bar
         fill(this.upBarCol);
-        rect(this.x, this.y-(this.height/2), this.width, this.height/4);
+        rect(this.x, this.y-(this.height/2), this.width, this.height/10);
 
         fill(this.mainCol);
         for(let i = 0; i > 2; i++){
           //Draw the three squares in the top right corner (WIP)
-          square(this.x + 200, this.y, this.width);
+          fill(255);
+          rect(this.x, this.y, this.width, this.height);
         }
 
         //Specifying which windows are on the screen
@@ -87,17 +94,30 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
           //Adds the bar display to the window, mapped to one of the channels
         //}
 
+        //else if (this.name == 'HeartDisplay'){
+          //Adds the heart display to the window, mapped to the channels
+        //}
+
+        //else if (this.name == 'ChatDisplay'){
+          //Adds the chat display to the window, mapped to one of the channels
+        //}
+
+        //some other stuff MAYBE I love the hit song inandesu by the hit secret music circle nightcord at 25:00
+
       }
     }
   }
 
-  let b = new BrowserWindow('Popup', 200, 300, 200, 200);
-  b.display();
-  let f = new BrowserWindow('Other', 100, 200, 400, 400);
-  f.display();
+  //let b = new BrowserWindow('Popup', 200, 300, 200, 200);
+  //b.display();
+  //let f = new BrowserWindow('Other', 100, 200, 400, 400);
+  //f.display();
 
-  let one = new BrowserWindow('Popup', 100, 200, canvasWidth/2, canvasHeight/2);
-  one.display();
+  let heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
+  heart.pinkMode = false;
+  heart.display();
+
+  
  
 
  }

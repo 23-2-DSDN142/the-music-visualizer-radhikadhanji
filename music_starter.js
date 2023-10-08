@@ -1,11 +1,22 @@
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  //Make a background gradient pretty please
-  background(104, 11, 154)
+  background(152, 49, 168)
   textFont('Helvetica'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
+
+  let lighterPurple = color(130, 13, 141);
+  let darkerPurple = color(123, 12, 154);
+  let backLerpMap = map(drum, 0, 100, 0, 1);
+  let backRectCol = lerpColor(lighterPurple, darkerPurple, backLerpMap);
+  fill(backRectCol);
+  noStroke();
+  rect(canvasWidth/2, canvasHeight/2, canvasWidth - 80, canvasHeight - 20); 
+
+
+
+
 
   //Objects section
   class BrowserWindow {
@@ -16,7 +27,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       this.x = x;
       this.y = y;
       this.mainCol;
-      this.pinkMode = false;
+      this.pinkMode = true;
       this.upBarCol;
 
       if(this.pinkMode){
@@ -111,6 +122,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   let heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
   heart.display();
+  
 
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
 

@@ -86,6 +86,11 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
         fill(this.upBarCol);
         rect(this.x, this.y-(this.height/2), this.width, this.height/10);
 
+        let outlineCol = color(145, 255, 147);
+        stroke(outlineCol);
+        strokeWeight(2.5);
+        line(this.x - this.width/2, this.y - this.height/1.83, this.x + this.width/2, this.y - this.height/1.83); //outline at the top
+
         fill(this.mainCol);
         for(let i = 0; i > 2; i++){
           //Draw the three squares in the top right corner (WIP)
@@ -112,12 +117,13 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
           vertex(this.x, this.y + this.height/2 - 50);
           bezierVertex(this.x + this.width/2, 300, this.x + 50, this.y - this.width/2 + 50, this.x, this.y -50 ); //right side of heart
-          vertex(this.x, this.y + this.height/2 - 50);
+          vertex(this.x, this.y + this.height/2 - 51);
           bezierVertex(this.x - this.width/2, 300, this.x - 50, this.y - this.width/2 + 50, this.x, this.y - 50); //left side of heart
 
           endShape();
 
           stroke(0);
+          strokeWeight(8);
           noFill();
           line(this.x, this.y + this.height/2 - 60, this.x, this.y - 40); //fills in the gaps
 
@@ -140,7 +146,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
   bar.display();
 
-  let chat = new BrowserWindow('ChatDisplay', 200, 300, canvasWidth - 200, canvasHeight - 350);
+  let chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 200, canvasHeight - 350);
   chat.display();
 
   let sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);

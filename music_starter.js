@@ -1,5 +1,3 @@
-let windows = [];
-
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -18,7 +16,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       this.x = x;
       this.y = y;
       this.mainCol;
-      this.pinkMode = true;
+      this.pinkMode = false;
       this.upBarCol;
 
       if(this.pinkMode){
@@ -108,14 +106,11 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     }
   }
 
-  //let b = new BrowserWindow('Popup', 200, 300, 200, 200);
-  //b.display();
-  //let f = new BrowserWindow('Other', 100, 200, 400, 400);
-  //f.display();
-
   let heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
-  heart.pinkMode = false;
   heart.display();
+
+  //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
+
 
   
  

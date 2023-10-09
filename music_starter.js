@@ -135,6 +135,42 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
           fill(247, 126, 213);
           rect(this.x - this.width/2.52, this.y + 8, this.width/5, this.height - 20); //sidebar
 
+          let firstIcon = color(186, 61, 108);
+          let secondIcon = color(111, 111, 223);
+          let thirdIcon = color(195, 65, 150);
+          let fourthIcon = color(189, 119, 52);
+
+          fill(firstIcon);
+          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12); //first icon
+          fill(255);
+          for(let i = 0; i < 6; i++){
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/3, 10); //square detailing
+          }
+
+          fill(secondIcon);
+          circle(this.x - this.width/4.5, this.y - this.height/5, this.width/12); //second icon
+          fill(255);
+          for(let i = 0; i < 6; i++){
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/5, 10); //square detailing
+          }
+
+          for(let i = 0; i < 4; i++){
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/8.5, 10); //an additional line underneath
+          }
+
+          fill(thirdIcon);
+          circle(this.x - this.width/4.5, this.y, this.width/12); //third icon
+          fill(255);
+          for(let i = 0; i < 5; i++){
+            square(this.x - this.width/8 + (i * 40), this.y, 10); //square detailing
+          }
+
+          fill(fourthIcon);
+          circle(this.x - this.width/4.5, this.y + this.height/5, this.width/12); //fourth icon
+          fill(255);
+          for(let i = 0; i < 3; i++){
+            square(this.x - this.width/8 + (i * 40), this.y + this.height/5, 10); //square detailing
+          }
           
         }
 

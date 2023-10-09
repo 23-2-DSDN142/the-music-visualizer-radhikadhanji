@@ -68,7 +68,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
         strokeWeight(1);
         rect(this.x, this.y + (this.height/5), this.width/2.5, this.height/5, 10, 10, 10, 10);
         fill(this.upBarCol);
-        text('OK', this.x + this.x/10, this.y + (this.height/4.5), this.width/4, this.height/5);
+        text('OK', this.x + 20, this.y + (this.height/4.5), this.width/4, this.height/5);
 
       }
       else{
@@ -195,6 +195,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   let sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
   sky.display();
+
+  let pop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
+  pop.display();
  
 
  }

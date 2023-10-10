@@ -15,6 +15,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rect(canvasWidth/2, canvasHeight/2, canvasWidth - 80, canvasHeight - 20); //draws the darker background rectangle 
 
 
+
   //Browser window class
   class BrowserWindow {
     constructor(name, height, width, x, y){
@@ -103,6 +104,35 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
         else if(this.name == 'BarDisplay'){
           //Adds the bar display to the window, mapped to one of the channels
+          stroke(outlineCol);
+          strokeWeight(2.5);
+          line(this.x + this.width/2 + bass/12, this.y - this.height/2 - bass/12, this.x + this.width/2 + bass/12, this.y - this.height/2 - bass/12 + 50); //accentuates right side of window that overlaps
+
+          let backBarCol = color(192, 73, 209);
+          fill(backBarCol);
+          noStroke();
+          //Draws the bars at the back
+          rect(this.x, this.y - this.height/4, this.width - 10, 20);
+          rect(this.x, this.y - 10, this.width-10, 20);
+          rect(this.x, this.y + this.height/7, this.width-10, 20);
+          rect(this.x, this.y + this.height/3, this.width-10, 20);
+
+
+          let volBarCol = color(220, 74, 201);
+          fill(volBarCol);
+          noStroke();
+
+          let vocalVol = map(vocal, 0, 100, 0, 0.7 * this.width, true);
+          let drumVol = map(drum, 0, 100, 0, 0.7 * this.width, true);
+          let bassVol = map(bass, 0, 100, 0, 0.7 * this.width, true);
+          let otherVol = map(other, 0, 100, 0, 0.7 * this.width, true);
+
+          //Draws the bars mapped to the channels
+          rect(this.x, this.y - this.height/4, vocalVol, 20);
+          rect(this.x, this.y - 10, drumVol, 20);
+          rect(this.x, this.y + this.height/7, bassVol, 20);
+          rect(this.x, this.y + this.height/3, otherVol, 20);
+
         }
 
         else if (this.name == 'HeartDisplay'){
@@ -144,35 +174,35 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
           let fourthIcon = color(189, 119, 52);
 
           fill(firstIcon);
-          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12); //first icon
+          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10); //first icon
           fill(255);
           for(let i = 0; i < 6; i++){
-            square(this.x - this.width/8 + (i * 40), this.y - this.height/3, 10 + bass/10); //square detailing
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/3, 10 + bass/20); //square detailing
           }
 
           fill(secondIcon);
-          circle(this.x - this.width/4.5, this.y - this.height/5, this.width/12); //second icon
+          circle(this.x - this.width/4.5, this.y - this.height/5, this.width/12 + vocal/10); //second icon
           fill(255);
           for(let i = 0; i < 6; i++){
-            square(this.x - this.width/8 + (i * 40), this.y - this.height/5, 10 + bass/10); //square detailing
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/5, 10 + bass/20); //square detailing
           }
 
           for(let i = 0; i < 4; i++){
-            square(this.x - this.width/8 + (i * 40), this.y - this.height/8.5, 10 + bass/10); //an additional line underneath
+            square(this.x - this.width/8 + (i * 40), this.y - this.height/8.5, 10 + bass/20); //an additional line underneath
           }
 
           fill(thirdIcon);
-          circle(this.x - this.width/4.5, this.y, this.width/12); //third icon
+          circle(this.x - this.width/4.5, this.y, this.width/12 + vocal/10); //third icon
           fill(255);
           for(let i = 0; i < 5; i++){
-            square(this.x - this.width/8 + (i * 40), this.y, 10 + bass/10); //square detailing
+            square(this.x - this.width/8 + (i * 40), this.y, 10 + bass/20); //square detailing
           }
 
           fill(fourthIcon);
-          circle(this.x - this.width/4.5, this.y + this.height/5, this.width/12); //fourth icon
+          circle(this.x - this.width/4.5, this.y + this.height/5, this.width/12 + vocal/10); //fourth icon
           fill(255);
           for(let i = 0; i < 3; i++){
-            square(this.x - this.width/8 + (i * 40), this.y + this.height/5, 10 + bass/10); //square detailing
+            square(this.x - this.width/8 + (i * 40), this.y + this.height/5, 10 + bass/20); //square detailing
           }
           
         }
@@ -187,7 +217,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   heart.display();
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
 
-  let bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
+  if(song.currentTime() > 12.5){
+    let bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
   bar.display();
 
   let chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
@@ -196,9 +227,12 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
   sky.display();
 
-  let pop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
-  pop.display();
- 
+  }
+
+  
+
+
+
 
  }
 

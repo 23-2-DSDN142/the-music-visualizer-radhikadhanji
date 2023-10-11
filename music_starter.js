@@ -127,9 +127,8 @@ class BrowserWindow {
 
       else if (this.name == 'HeartDisplay'){
         //Adds the heart display to the window, mapped to the channels
-        //I wish to add the neony effect someday
 
-        // for loop calls drawheart Function. Bigger the base more times round the foor loop
+        // for loop calls drawheart Function. Bigger the base more times round the for loop
         // pass the fuction how big you want the heart to be drawn, later in the for loop bigger the heart
         // heart size based on scale. 
         push()
@@ -228,8 +227,6 @@ class BrowserWindow {
           }
 
         }
-
-        
         
       }
 
@@ -249,6 +246,10 @@ let heart;
 let bar;
 let chat;
 let sky;
+let firstPop;
+let popUp;
+//Create an array of pop up windows, then display a lot of them later on by iterating through pop up windows !!
+//Have to individually create every window with random placements sadly 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -265,6 +266,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
     chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
     sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
+    firstPop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
+
+    popUp = new BrowserWindow('Popup', 200, 300, canvasWidth + random(-500, 500), canvasHeight + random(-500, 500));
 
     firstRun = false;
 
@@ -279,10 +283,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rect(canvasWidth/2, canvasHeight/2, canvasWidth - 80, canvasHeight - 20); //draws the darker background rectangle 
 
 
-
-
-
-  
   heart.display(words, vocal, drum, bass, other, counter);
   let wingMap = map(other, 0, 100, 0, 100);
 
@@ -323,13 +323,12 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
 
   if(song.currentTime() > 100 && song.currentTime() < 104){
-    let pop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
-    pop.display(words, vocal, drum, bass, other, counter);
+    firstPop.display(words, vocal, drum, bass, other, counter);
   }
   
   if(song.currentTime() > 104 && song.currentTime() < 109){
     for(let i = 0; i > 30; i++){
-      let popUp = new BrowserWindow('Popup', 200, 300, )
+      popUp.display(words, vocal, drum, bass, other, counter);
     }
   }
 

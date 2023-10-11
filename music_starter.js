@@ -268,7 +268,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
     firstPop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
 
-    popUp = new BrowserWindow('Popup', 200, 300, canvasWidth + random(-500, 500), canvasHeight + random(-500, 500));
+    popUp = new BrowserWindow('Popup', 200, 300, canvasWidth/4 + random(-200, 200), canvasHeight/4 + random(-200, 200));
 
     firstRun = false;
 
@@ -327,9 +327,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
   
   if(song.currentTime() > 104 && song.currentTime() < 109){
-    for(let i = 0; i > 30; i++){
       popUp.display(words, vocal, drum, bass, other, counter);
-    }
   }
 
   if(song.currentTime() > 121){

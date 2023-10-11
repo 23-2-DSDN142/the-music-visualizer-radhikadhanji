@@ -233,8 +233,6 @@ class BrowserWindow {
         
       }
 
-      //some other stuff MAYBE I love the hit song inandesu by the hit secret music circle nightcord at 25:00
-
     }
   }
 }
@@ -262,7 +260,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   if(firstRun){
     leftWing = loadImage('leftWing.png');
     rightWing = loadImage('rightWing.png');
-    
+
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
     bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
     chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);

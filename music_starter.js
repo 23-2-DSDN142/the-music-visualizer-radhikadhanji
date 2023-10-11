@@ -1,10 +1,23 @@
 
+let firstRun = true;
+
+let leftWing;
+let rightWing;
+
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   background(152, 49, 168)
   textFont('Helvetica'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
+
+  if(firstRun){
+    leftWing = loadImage('leftWing.png');
+    rightWing = loadImage('rightWing.png');
+
+    firstRun = false;
+
+  }
 
   let lighterPurple = color(130, 13, 141);
   let darkerPurple = color(123, 12, 154); //two colours for the background lerp map
@@ -215,11 +228,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   let heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
   heart.display();
+
+  if(song.currentTime() < 12.6){
+    let wingMap = map(other, 0, 100, 0, 100);
+
+    image(leftWing, canvasWidth/2 - 400, canvasHeight/2  - wingMap);
+    image(rightWing, canvasWidth/2 + 200, canvasHeight/2 - wingMap);
+  }
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
 
-  if(song.currentTime() > 12.5){
+  if(song.currentTime() > 12.6){
     let bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
-  bar.display();
+    bar.display();
 
   let chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
   chat.display();

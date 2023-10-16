@@ -248,6 +248,8 @@ let chat;
 let sky;
 let firstPop;
 let popUp;
+
+let windows = [];
 //Create an array of pop up windows, then display a lot of them later on by iterating through pop up windows !!
 //Have to individually create every window with random placements sadly 
 
@@ -269,6 +271,14 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     firstPop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
 
     popUp = new BrowserWindow('Popup', 200, 300, canvasWidth/4 + random(-200, 200), canvasHeight/4 + random(-200, 200));
+    windows.unshift(popUp);
+
+    for(let i = 200; i < 800; i++){
+      popUpWindow = new BrowserWindow('Popup', 200, 300, canvasWidth/4 + random(-200 + i * 10, 200 + i * 10), canvasHeight/4 + random(-200 + i * 10, 200 + i * 10));
+      windows.push(popUpWindow);
+      i = i + 100;
+      console.log(popUpWindow.name);
+    }
 
     firstRun = false;
 
@@ -323,11 +333,13 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
 
   if(song.currentTime() > 100 && song.currentTime() < 104){
-    firstPop.display(words, vocal, drum, bass, other, counter);
+    windows[0].display;
   }
   
   if(song.currentTime() > 104 && song.currentTime() < 109){
-      popUp.display(words, vocal, drum, bass, other, counter);
+      for(let i = 1; i < 5; i++){
+        windows[i].display;
+      }
   }
 
   if(song.currentTime() > 121){

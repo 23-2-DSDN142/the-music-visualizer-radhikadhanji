@@ -1,5 +1,7 @@
 // ----- Browser Window class ----- //
 
+
+
 //Browser window class
 class BrowserWindow {
   constructor(name, height, width, x, y){
@@ -42,18 +44,18 @@ class BrowserWindow {
       fill(this.mainCol);
       stroke(this.upBarCol);
       strokeWeight(3);
-      rect(this.x, this.y, this.width, this.height, 10, 10, 10, 10);
+      rect(this.x, this.y, this.width + drum/12, this.height + drum/12, 10, 10, 10, 10);
 
       //Top bar
       fill(this.upBarCol);
-      rect(this.x, this.y - (this.height/2), this.width, this.height/4, 10, 10, 0, 0);
+      rect(this.x, this.y - (this.height/2), this.width + drum/12, this.height/4 + drum/12, 10, 10, 0, 0);
 
       //Makes the button
       noFill();
       strokeWeight(1);
-      rect(this.x, this.y + (this.height/5), this.width/2.5, this.height/5, 10, 10, 10, 10);
+      rect(this.x + 3, this.y + this.height/3 , this.width/2.5 + drum/12, this.height/5 + drum/12, 10, 10, 10, 10);
       fill(this.upBarCol);
-      text('OK', this.x + 20, this.y + (this.height/4.5), this.width/4, this.height/5);
+      text('OK', this.x + 23, this.y + this.height/2.75, this.width/4, this.height/5);
 
     }
     else{
@@ -237,7 +239,10 @@ class BrowserWindow {
 // ----- End of Browser Window class ----- //
 
 // Declare Variables
+
 let firstRun = true;
+
+let browserWindowX;
 
 let leftWing;
 let rightWing;
@@ -261,6 +266,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textSize(24);
 
   if(firstRun){
+    browserWindowX = loadImage('browserWindowX.png');
     leftWing = loadImage('leftWing.png');
     rightWing = loadImage('rightWing.png');
 
@@ -301,6 +307,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2 - wingMap);
   }
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
+
+  firstPop.display(words, vocal, drum, bass, other, counter);
+  image(browserWindowX, firstPop.x - 45, firstPop.y - 65, 90 + drum/12, 90 + drum/12);
 
   
 

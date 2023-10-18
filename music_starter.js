@@ -42,16 +42,16 @@ class BrowserWindow {
       fill(this.mainCol);
       stroke(this.upBarCol);
       strokeWeight(3);
-      rect(this.x, this.y, this.width + drum/12, this.height + drum/12, 10, 10, 10, 10);
+      rect(this.x, this.y, this.width + drum/10, this.height + drum/10, 10, 10, 10, 10);
 
       //Top bar
       fill(this.upBarCol);
-      rect(this.x, this.y - (this.height/2), this.width + drum/12, this.height/4 + drum/12, 10, 10, 0, 0);
+      rect(this.x, this.y - (this.height/2), this.width + drum/10, this.height/4 + drum/10, 10, 10, 0, 0);
 
       //Makes the button
       noFill();
       strokeWeight(1);
-      rect(this.x + 3, this.y + this.height/3 , this.width/2.5 + drum/12, this.height/5 + drum/12, 10, 10, 10, 10);
+      rect(this.x + 3, this.y + this.height/3 , this.width/2.5 + drum/10, this.height/5 + drum/10, 10, 10, 10, 10);
       fill(this.upBarCol);
       text('OK', this.x + 23, this.y + this.height/2.75, this.width/4, this.height/5);
 
@@ -240,7 +240,7 @@ class BrowserWindow {
         //Display shutdown text
         fill(255);
         noStroke();
-        text('Are you sure you want to shut down?', this.x + this.width/11, this.y + this.height/4.5, this.width/1.5, this.height/1.5);
+        text('Are you sure?', canvasWidth/2, canvasHeight/2, canvasWidth/2, canvasHeight/2);
       }
 
     }
@@ -260,6 +260,7 @@ let rightWing;
 let glass;
 let skyBackground;
 let moon;
+let endScreen;
 
 let heart;
 let bar;
@@ -290,6 +291,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     glass = loadImage('brokenGlass.png');
     skyBackground = loadImage('skyBG.png');
     moon = loadImage('moon.png');
+    endScreen = loadImage('endScreen.png');
 
     //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
@@ -426,31 +428,31 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 //------Pop up window section of the song-------
 
-  if(song.currentTime() > 100 && song.currentTime() < 109.5){
+  if(song.currentTime() > 99 && song.currentTime() < 109.5){
     //First window, displayed in the first section of the instrumental
     windows[0].display(words, vocal, drum, bass, other, counter);
-    image(browserWindowX, windows[0].x - 45, windows[0].y - 65, 90 + drum/12, 90 + drum/12);
+    image(browserWindowX, windows[0].x - 45, windows[0].y - 65, 90 + drum/7, 90 + drum/7);
   }
   
   if(song.currentTime() > 104 && song.currentTime() < 105){
     //Displays first 5 windows
       for(let i = 1; i < 5; i++){
         windows[i].display(words, vocal, drum, bass, other, counter);
-        image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+        image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
       }
   }
   if(song.currentTime() > 105 && song.currentTime() < 106){
     //Displays windows from position 5-10 in array
     for(let i = 1; i < 10; i++){
       windows[i].display(words, vocal, drum, bass, other, counter);
-      image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+      image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
     }
 }
 if(song.currentTime() > 106 && song.currentTime() < 106.8){
   //Displays windows from position 10-25 in array
   for(let i = 1; i < 25; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
-    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
   }
 }
 
@@ -458,7 +460,7 @@ if(song.currentTime() > 106.8 && song.currentTime() < 107.5){
   //Displays windows from position 25-45 in array
   for(let i = 1; i < 45; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
-    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
   }
 }
 
@@ -466,15 +468,15 @@ if(song.currentTime() > 107.5 && song.currentTime() < 108){
   //Displays windows from position 45-75 in array
   for(let i = 1; i < 75; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
-    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
   }
 }
 
-if(song.currentTime() > 108 && song.currentTime() < 108.5){
+if(song.currentTime() > 108 && song.currentTime() < 109.5){
   //Displays windows from position 75-100 in array
   for(let i = 1; i < 100; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
-    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/7, 90 + drum/7);
   }
 }
 
@@ -538,6 +540,10 @@ if(song.currentTime() > 120.6 && song.currentTime() < 121){
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
     image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
 
+  }
+
+  if(song.currentTime() > 143){
+    image(endScreen, 0, 0);
   }
 
 

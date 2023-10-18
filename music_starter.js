@@ -37,7 +37,7 @@ class BrowserWindow {
 
   display(words, vocal, drum, bass, other, counter){
     //Displays the browser window.
-    if(this.name == 'Popup'){
+    if(this.name == 'Popup' || this.name == 'Shutdown'){
       //Makes a popup
       fill(this.mainCol);
       stroke(this.upBarCol);
@@ -139,17 +139,17 @@ class BrowserWindow {
         strokeWeight(7);
         beginShape();
         
-        vertex(this.x, this.y + this.height/2 - 50);
-        bezierVertex(this.x + this.width/1.75, 400, this.x + 100, this.y - this.width/2 + 50, this.x, this.y -50 ); //right side of heart
-        vertex(this.x, this.y + this.height/2 - 51);
-        bezierVertex(this.x - this.width/1.75, 400, this.x - 100, this.y - this.width/2 + 50, this.x, this.y - 50); //left side of heart
+        vertex(this.x, this.y + this.height/2 - 50 - 10);
+        bezierVertex(this.x + this.width/1.75, 400 - 10, this.x + 100, this.y - this.width/2 + 50 - 10, this.x, this.y -50 - 10 ); //right side of heart
+        vertex(this.x, this.y + this.height/2 - 51 - 10);
+        bezierVertex(this.x - this.width/1.75, 400 - 10, this.x - 100, this.y - this.width/2 + 50 - 10, this.x, this.y - 50 - 10); //left side of heart
 
         endShape();
         pop()
         stroke(0);
         strokeWeight(8);
         noFill();
-        line(this.x, this.y + this.height/2 - 60, this.x, this.y - 40); //fills in the middle gap
+        line(this.x, this.y + this.height/2 - 70, this.x, this.y - 50); //fills in the middle gap
 
       }
 
@@ -290,7 +290,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
     chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
     sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
-    shuttingDown = new BrowserWindow('Shutdown', 200, 400, canvasWidth/2, canvasHeight/2);
+    shuttingDown = new BrowserWindow('Shutdown', 300, 500, canvasWidth/2, canvasHeight/2);
     
 
     //Initialises first window in the array, manually placed
@@ -316,7 +316,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
 
 
-  //Background details
+  //-------Background details-----------
 
   let lighterPurple = color(130, 13, 141);
   let darkerPurple = color(123, 12, 154); //two colours for the background lerp map
@@ -325,6 +325,22 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   fill(backRectCol);
   noStroke();
   rect(canvasWidth/2, canvasHeight/2, canvasWidth - 80, canvasHeight - 20); //draws the darker background rectangle 
+
+  stroke(255);
+  strokeWeight(0.4);
+  for(let i = 0; i < canvasWidth-20; i++){
+    //Draws the vertical lines for the grid down the canvas
+    line(i, 20, i, canvasHeight-20);
+    i = i + 35;
+  }
+
+  for(let i = 0; i < canvasHeight - 20; i++){
+    //Draws the horizontal lines for the grid across the canvas
+    line(40, i, canvasWidth-45, i);
+    i = i + 35;
+
+  }
+
 
 
   //-------Functions for song runtime---------
@@ -338,7 +354,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     heart.display(words, vocal, drum, bass, other, counter);
   }
 
-  if(song.currentTime() > 121 && song.currentTime() < 148.5){
+  if(song.currentTime() > 121 && song.currentTime() < 142.9){
     //From the last chorus to the very end
     heart.display(words, vocal, drum, bass, other, counter);
   }
@@ -353,7 +369,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
 
 
-  if(song.currentTime() > 13 && song.currentTime() < 46){
+  if(song.currentTime() > 13 && song.currentTime() < 47){
     //First section of the song, before the funky thing part
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
@@ -361,13 +377,13 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   }
 
-  if(song.currentTime() > 46 && song.currentTime() < 47){
+  if(song.currentTime() > 47 && song.currentTime() < 48){
     //First funky thing part
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
   }
 
-  if(song.currentTime() > 47 && song.currentTime() < 87){
+  if(song.currentTime() > 48 && song.currentTime() < 87){
     //first chorus and onward up to second funky sound thing
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
@@ -387,10 +403,12 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     sky.display(words, vocal, drum, bass, other, counter);
   }
 
+
+
 //------Pop up window section of the song-------
 
-  if(song.currentTime() > 100 && song.currentTime() < 104){
-    //First window, for a shorter time
+  if(song.currentTime() > 100 && song.currentTime() < 109.5){
+    //First window, displayed in the first section of the instrumental
     windows[0].display(words, vocal, drum, bass, other, counter);
     image(browserWindowX, windows[0].x - 45, windows[0].y - 65, 90 + drum/12, 90 + drum/12);
   }
@@ -443,6 +461,9 @@ if(song.currentTime() > 108.5 && song.currentTime() < 109.5){
 
 //------End of random pop up window section------
 
+
+
+
 if(song.currentTime() > 109.5 && song.currentTime() < 121){
   shuttingDown.display(words, vocal, drum, bass, other, counter);
 }
@@ -450,14 +471,14 @@ if(song.currentTime() > 109.5 && song.currentTime() < 121){
 
 //Three browser windows displayed after the final glitchy part before the last chorus
 
-if(song.currentTime() > 120.1 && song.currentTime() < 121){
+if(song.currentTime() > 120.2 && song.currentTime() < 121){
   firstPlaced.display(words, vocal, drum, bass, other, counter);
   image(browserWindowX, firstPlaced.x - 45, firstPlaced.y - 65, 90 + drum/12, 90 + drum/12);
 
 
 }
 
-if(song.currentTime() > 120.3 && song.currentTime() < 121){
+if(song.currentTime() > 120.4 && song.currentTime() < 121){
   secondPlaced.display(words, vocal, drum, bass, other, counter);
   image(browserWindowX, secondPlaced.x - 45, secondPlaced.y - 65, 90 + drum/12, 90 + drum/12);
 
@@ -473,20 +494,20 @@ if(song.currentTime() > 120.6 && song.currentTime() < 121){
 
 
 
-  if(song.currentTime() > 121 && song.currentTime() < 147){
+  if(song.currentTime() > 121 && song.currentTime() < 142){
     //Final chorus to the end
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
   }
 
-  if(song.currentTime() > 121 && song.currentTime() < 147.5){
+  if(song.currentTime() > 121 && song.currentTime() < 142.3){
     //Final chorus to the end
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
   }
 
-  if(song.currentTime() > 121 && song.currentTime() < 148){
+  if(song.currentTime() > 121 && song.currentTime() < 142.7){
     //Final chorus to the end
     sky.display(words, vocal, drum, bass, other, counter);
   }

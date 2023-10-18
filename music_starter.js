@@ -229,6 +229,12 @@ class BrowserWindow {
           }
 
         }
+
+        else{
+          fill(fourthIcon);
+          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
+    
+        }
         
       }
 
@@ -251,12 +257,14 @@ let heart;
 let bar;
 let chat;
 let sky;
-let firstPop;
-let popUp;
+let popUp; //first pop up window in windows array, manually placed
+
+//Pop up windows for the part near the end, next to each other and manually placed
+let firstPlaced;
+let secondPlaced;
+let thirdPlaced;
 
 let windows = [];
-//Create an array of pop up windows, then display a lot of them later on by iterating through pop up windows !!
-//Have to individually create every window with random placements sadly 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -266,29 +274,42 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textSize(24);
 
   if(firstRun){
+    //Loads in all images
     browserWindowX = loadImage('browserWindowX.png');
     leftWing = loadImage('leftWing.png');
     rightWing = loadImage('rightWing.png');
 
+    //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
     bar = new BrowserWindow('BarDisplay', 200, 300, canvasWidth/7, canvasHeight/4.5);
     chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
     sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
-    firstPop = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
+    
 
-    popUp = new BrowserWindow('Popup', 200, 300, canvasWidth/4 + random(-200, 200), canvasHeight/4 + random(-200, 200));
+    //Initialises first window in the array, manually placed
+    popUp = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
     windows.unshift(popUp);
 
-    for(let i = 200; i < 800; i++){
-      popUpWindow = new BrowserWindow('Popup', 200, 300, canvasWidth/4 + random(-200 + i * 10, 200 + i * 10), canvasHeight/4 + random(-200 + i * 10, 200 + i * 10));
+    //Creates 100 windows which are randomly placed on the screen
+    for(let i = 0; i < 100; i++){
+      let widthRandom = random(0, 1280);
+      let heightRandom = random(0, 720);
+      popUpWindow = new BrowserWindow('Popup', 200, 300, widthRandom, heightRandom);
       windows.push(popUpWindow);
-      i = i + 100;
-      console.log(popUpWindow.name);
     }
+
+    //Initialises first, second and third windows for the section just before the last chorus
+    firstPlaced = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
+    secondPlaced = new BrowserWindow('Popup', 200, 300, canvasWidth/2 + 10, canvasHeight/2 + 10);
+    thirdPlaced = new BrowserWindow('Popup', 200, 300, canvasWidth/2 + 20, canvasHeight/2 + 20);
+
 
     firstRun = false;
 
   }
+
+
+  //Background details
 
   let lighterPurple = color(130, 13, 141);
   let darkerPurple = color(123, 12, 154); //two colours for the background lerp map
@@ -298,6 +319,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   noStroke();
   rect(canvasWidth/2, canvasHeight/2, canvasWidth - 80, canvasHeight - 20); //draws the darker background rectangle 
 
+  //Functions for song runtime
 
   heart.display(words, vocal, drum, bass, other, counter);
   let wingMap = map(other, 0, 100, 0, 100);
@@ -308,10 +330,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
   //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
 
-  firstPop.display(words, vocal, drum, bass, other, counter);
-  image(browserWindowX, firstPop.x - 45, firstPop.y - 65, 90 + drum/12, 90 + drum/12);
-
-  
 
   if(song.currentTime() > 13 && song.currentTime() < 46){
     //First section of the song, before the funky thing part
@@ -341,15 +359,83 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     sky.display(words, vocal, drum, bass, other, counter);
   }
 
+//Pop up window section of the song
+
   if(song.currentTime() > 100 && song.currentTime() < 104){
-    windows[0].display;
+    //First window, for a shorter time
+    windows[0].display(words, vocal, drum, bass, other, counter);
+    image(browserWindowX, windows[0].x - 45, windows[0].y - 65, 90 + drum/12, 90 + drum/12);
   }
   
-  if(song.currentTime() > 104 && song.currentTime() < 109){
+  if(song.currentTime() > 104 && song.currentTime() < 105){
+    //Displays first 5 windows
       for(let i = 1; i < 5; i++){
-        windows[i].display;
+        windows[i].display(words, vocal, drum, bass, other, counter);
+        image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
       }
   }
+  if(song.currentTime() > 105 && song.currentTime() < 106){
+    //Displays windows from position 5-10 in array
+    for(let i = 1; i < 10; i++){
+      windows[i].display(words, vocal, drum, bass, other, counter);
+      image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+    }
+}
+if(song.currentTime() > 106 && song.currentTime() < 107){
+  //Displays windows from position 10-25 in array
+  for(let i = 1; i < 25; i++){
+    windows[i].display(words, vocal, drum, bass, other, counter);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+  }
+}
+
+if(song.currentTime() > 107 && song.currentTime() < 108){
+  //Displays windows from position 25-45 in array
+  for(let i = 1; i < 45; i++){
+    windows[i].display(words, vocal, drum, bass, other, counter);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+  }
+}
+
+if(song.currentTime() > 108 && song.currentTime() < 108.5){
+  //Displays windows from position 45-75 in array
+  for(let i = 1; i < 75; i++){
+    windows[i].display(words, vocal, drum, bass, other, counter);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+  }
+}
+
+if(song.currentTime() > 108.5 && song.currentTime() < 109.5){
+  //Displays windows from position 75-100 in array
+  for(let i = 1; i < 100; i++){
+    windows[i].display(words, vocal, drum, bass, other, counter);
+    image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
+  }
+}
+
+//End of random pop up window section
+
+if(song.currentTime() > 120 && song.currentTime() < 121){
+  firstPlaced.display(words, vocal, drum, bass, other, counter);
+  image(browserWindowX, firstPlaced.x - 45, firstPlaced.y - 65, 90 + drum/12, 90 + drum/12);
+
+
+}
+
+if(song.currentTime() > 120.3 && song.currentTime() < 121){
+  secondPlaced.display(words, vocal, drum, bass, other, counter);
+  image(browserWindowX, secondPlaced.x - 45, secondPlaced.y - 65, 90 + drum/12, 90 + drum/12);
+
+  
+}
+
+if(song.currentTime() > 120.6 && song.currentTime() < 121){
+  thirdPlaced.display(words, vocal, drum, bass, other, counter);
+  image(browserWindowX, thirdPlaced.x - 45, thirdPlaced.y - 65, 90 + drum/12, 90 + drum/12);
+  
+}
+
+
 
   if(song.currentTime() > 121){
     //Final chorus to the end
@@ -357,20 +443,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
   }
-
-  //Some timestamps <3
-  //46 seconds - the first funky little sound thing happens
-  //63 seconds - first chorus ends
-  //87 seconds - the second funky little sound thing happens
-  //100 (about) seconds - second chorus ends, the fun part from the teaser starts
-  //109 seconds - Ena starts singing again
-  //119 (about) seconds - the last funky little sound thing happens
-  //121 seconds - the final chorus happens
-  //133 (about) seconds - the singing ends
-
-  
-
-
 
 
  }

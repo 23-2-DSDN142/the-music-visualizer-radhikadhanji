@@ -257,6 +257,9 @@ let browserWindowX;
 
 let leftWing;
 let rightWing;
+let glass;
+let skyBackground;
+let moon;
 
 let heart;
 let bar;
@@ -284,6 +287,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     browserWindowX = loadImage('browserWindowX.png');
     leftWing = loadImage('leftWing.png');
     rightWing = loadImage('rightWing.png');
+    glass = loadImage('brokenGlass.png');
+    skyBackground = loadImage('skyBG.png');
+    moon = loadImage('moon.png');
 
     //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
@@ -345,7 +351,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   //-------Functions for song runtime---------
 
-  
 
 
   //Heart window always drawn except for the bridge and the very end
@@ -374,6 +379,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
+  
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
 
   }
 
@@ -381,6 +390,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     //First funky thing part
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
+    image(glass, 390, 150);
   }
 
   if(song.currentTime() > 48 && song.currentTime() < 87){
@@ -388,12 +398,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
+  
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
+
   }
 
   if(song.currentTime() > 87 && song.currentTime() < 88){
     //Second funky sound thing
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
+    image(glass, 390, 150);
   }
 
   if(song.currentTime() > 88 && song.currentTime() < 109){
@@ -401,6 +417,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
   }
 
 
@@ -499,17 +518,26 @@ if(song.currentTime() > 120.6 && song.currentTime() < 121){
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
   }
 
   if(song.currentTime() > 121 && song.currentTime() < 142.3){
     //Final chorus to the end
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
   }
 
   if(song.currentTime() > 121 && song.currentTime() < 142.7){
     //Final chorus to the end
     sky.display(words, vocal, drum, bass, other, counter);
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
   }
 
 

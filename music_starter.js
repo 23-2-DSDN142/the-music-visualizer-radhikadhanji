@@ -427,7 +427,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       image(browserWindowX, windows[i].x - 45, windows[i].y - 65, 90 + drum/12, 90 + drum/12);
     }
 }
-if(song.currentTime() > 106 && song.currentTime() < 107){
+if(song.currentTime() > 106 && song.currentTime() < 106.8){
   //Displays windows from position 10-25 in array
   for(let i = 1; i < 25; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
@@ -435,7 +435,7 @@ if(song.currentTime() > 106 && song.currentTime() < 107){
   }
 }
 
-if(song.currentTime() > 107 && song.currentTime() < 108){
+if(song.currentTime() > 106.8 && song.currentTime() < 107.5){
   //Displays windows from position 25-45 in array
   for(let i = 1; i < 45; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
@@ -443,7 +443,7 @@ if(song.currentTime() > 107 && song.currentTime() < 108){
   }
 }
 
-if(song.currentTime() > 108 && song.currentTime() < 108.5){
+if(song.currentTime() > 107.5 && song.currentTime() < 108){
   //Displays windows from position 45-75 in array
   for(let i = 1; i < 75; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);
@@ -451,7 +451,7 @@ if(song.currentTime() > 108 && song.currentTime() < 108.5){
   }
 }
 
-if(song.currentTime() > 108.5 && song.currentTime() < 109.5){
+if(song.currentTime() > 108 && song.currentTime() < 108.5){
   //Displays windows from position 75-100 in array
   for(let i = 1; i < 100; i++){
     windows[i].display(words, vocal, drum, bass, other, counter);

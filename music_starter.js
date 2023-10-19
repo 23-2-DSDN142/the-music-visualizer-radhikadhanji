@@ -30,8 +30,8 @@ class BrowserWindow {
     }
     else{
       //Purple browser window
-      this.mainCol = color(196, 75, 212);
-      this.upBarCol = color(164, 29, 179);
+      this.mainCol = color(228, 107, 244);
+      this.upBarCol = color(191, 27, 209);
     }
 
   } 

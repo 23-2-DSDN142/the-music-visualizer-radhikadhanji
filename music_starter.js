@@ -1,6 +1,6 @@
 // ----- Browser Window class ----- //
 
-let values = [];
+//let values = [];
 
 
 
@@ -159,7 +159,7 @@ class BrowserWindow {
        
 
 
-        if(song.currentTime() < 47 || song.currentTime() > 48 && song.currentTime() < 87 || song.currentTime() > 88){
+        if(song.currentTime() < 47 || song.currentTime() > 48 && song.currentTime() < 86 || song.currentTime() > 88){
           //All the times when the wavy line shouldn't be drawn (i.e. the first and second sound effect parts)
           let yOff = this.y + vocal/50;
           stroke(255, 200);
@@ -265,7 +265,7 @@ class BrowserWindow {
           circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
           let imgCol = color(164, 29, 179);
           fill(imgCol);
-          square(this.x, this.y - this.height/5, this.width/2 + vocal/10);
+          square(this.x + 50, this.y + 50, this.width/1.5 + vocal/10);
     
         }
         
@@ -290,6 +290,8 @@ let rightWing;
 let glass;
 let skyBackground;
 let moon;
+let purpleX;
+let purpleCheck;
 
 //(Individual browser windows)
 let heart;
@@ -323,6 +325,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     glass = loadImage('brokenGlass.png');
     skyBackground = loadImage('skyBG.png');
     moon = loadImage('moon.png');
+    purpleX = loadImage('purpleBrowserX.png');
+    purpleCheck = loadImage('purpleCheck.png');
 
     //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
@@ -427,7 +431,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     image(glass, 390, 150);
   }
 
-  if(song.currentTime() > 48 && song.currentTime() < 87){
+  if(song.currentTime() > 48 && song.currentTime() < 85){
     //first chorus and onward up to second funky sound thing
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
@@ -439,7 +443,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   }
 
-  if(song.currentTime() > 87 && song.currentTime() < 88){
+  if(song.currentTime() > 86 && song.currentTime() < 88){
     //Second funky sound thing
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
@@ -452,7 +456,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 140, sky.y-120, 200 + other/2, 200 + other/2);
 
   }
 
@@ -519,6 +523,8 @@ if(song.currentTime() > 108 && song.currentTime() < 109.5){
 
 if(song.currentTime() > 109.5 && song.currentTime() < 121){
   shuttingDown.display(words, vocal, drum, bass, other, counter);
+  image(purpleBrowserX, shuttingDown.x + 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
+  image(purpleCheck, shuttingDown.x - 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
 }
 
 
@@ -553,7 +559,7 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 115, sky.y-115, 200 + other/2, 200 + other/2);
 
   }
 
@@ -562,7 +568,7 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 115, sky.y-115, 200 + other/2, 200 + other/2);
 
   }
 
@@ -570,13 +576,15 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
     //Final chorus to the end
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 115, sky.y-115, 200 + other/2, 200 + other/2);
 
   }
 
   if(song.currentTime() > 143){
     //Ending browser window
     endScreen.display(words, vocal, drum, bass, other, counter);
+    image(purpleBrowserX, endScreen.x + 150, endScreen.y + endScreen.height/3, 90 + drum/7, 90 + drum/7);
+    image(purpleCheck, shuttingDown.x - 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
 
   }
 

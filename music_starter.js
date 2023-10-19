@@ -48,12 +48,21 @@ class BrowserWindow {
       fill(this.upBarCol);
       rect(this.x, this.y - (this.height/2), this.width + drum/10, this.height/4 + drum/10, 10, 10, 0, 0);
 
-      //Makes the button
+      if(this.name == 'Popup'){
+        //Makes a single button
       noFill();
       strokeWeight(1);
       rect(this.x + 3, this.y + this.height/3 , this.width/2.5 + drum/10, this.height/5 + drum/10, 10, 10, 10, 10);
       fill(this.upBarCol);
-      text('OK', this.x + 23, this.y + this.height/2.75, this.width/4, this.height/5);
+
+      }
+
+      else if(this.name == 'Shutdown'){
+        //Makes two buttons
+        rect(this.x - 150, this.y + this.height/3, this.width/3.5 + drum/10, this.height/5 + drum/10, 10, 10, 10, 10);
+        rect(this.x + 150, this.y + this.height/3, this.width/3.5 + drum/10, this.height/5 + drum/10, 10, 10, 10, 10 );
+      }
+      
 
     }
     else{
@@ -82,11 +91,7 @@ class BrowserWindow {
 
       //Specifying which windows are on the screen
 
-      if(this.name == 'SkyDisplay'){
-        //Adds the sky display to the window
-      }
-
-      else if(this.name == 'BarDisplay'){
+       if(this.name == 'BarDisplay'){
         //Adds the bar display to the window, mapped to one of the channels
         stroke(outlineCol);
         strokeWeight(2.5);
@@ -131,6 +136,8 @@ class BrowserWindow {
         // for loop calls drawheart Function. Bigger the base more times round the for loop
         // pass the fuction how big you want the heart to be drawn, later in the for loop bigger the heart
         // heart size based on scale. 
+
+
         push()
         scale(1)
         stroke(255);
@@ -140,9 +147,9 @@ class BrowserWindow {
         beginShape();
         
         vertex(this.x, this.y + this.height/2 - 50 - 10);
-        bezierVertex(this.x + this.width/1.75, 400 - 10, this.x + 100, this.y - this.width/2 + 50 - 10, this.x, this.y -50 - 10 ); //right side of heart
+        bezierVertex(this.x + this.width/1.75 + vocal/4, 400 - 10, this.x + 100, this.y - this.width/2 + 50 - 10, this.x, this.y -50 - 10 ); //right side of heart
         vertex(this.x, this.y + this.height/2 - 51 - 10);
-        bezierVertex(this.x - this.width/1.75, 400 - 10, this.x - 100, this.y - this.width/2 + 50 - 10, this.x, this.y - 50 - 10); //left side of heart
+        bezierVertex(this.x - this.width/1.75 - vocal/4, 400 - 10, this.x - 100, this.y - this.width/2 + 50 - 10, this.x, this.y - 50 - 10); //left side of heart
 
         endShape();
         pop()
@@ -150,6 +157,26 @@ class BrowserWindow {
         strokeWeight(8);
         noFill();
         line(this.x, this.y + this.height/2 - 70, this.x, this.y - 50); //fills in the middle gap
+
+
+        let yOff = this.y + other/30;
+        fill(255);
+        noStroke();
+        
+        beginShape();
+        let xOff = this.x + this.width/1.75;
+
+        for(let i = this.x - this.width/5.1; i <= this.x + this.width/5; i+= 10){
+          let j = map(noise(xOff, yOff), 0, 1, 350 - bass, 550 - drum )
+
+          vertex(i, j);
+          xOff += 0.1;
+        }
+        yOff += 0.5;
+        vertex(this.x + 170, this.height - 200);
+        vertex(this.x - 170, this.height - 200);
+        endShape(CLOSE);
+
 
       }
 
@@ -184,7 +211,7 @@ class BrowserWindow {
         }
 
         for(let i = 0; i < 4; i++){
-          square(this.x - this.width/8 + (i * 40), this.y - this.height/8.5, 10 + bass/20); //an additional line underneath
+          square(this.x - this.width/8 + (i * 40), this.y - this.height/8.5, 10 + bass/20); //an additional line of 'text' underneath
         }
 
         fill(thirdIcon);
@@ -202,7 +229,7 @@ class BrowserWindow {
         }
         }
         
-        else if(song.currentTime() > 63 && song.currentTime() < 100){
+        else if(song.currentTime() > 63 && song.currentTime() < 121){
           fill(fourthIcon);
           circle(this.x -this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
           fill(255);
@@ -231,16 +258,12 @@ class BrowserWindow {
         else{
           fill(fourthIcon);
           circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
+          let imgCol = color(164, 29, 179);
+          fill(imgCol);
+          square(this.x, this.y - this.height/5, this.width/2 + vocal/10);
     
         }
         
-      }
-
-      else if(this.name == 'Shutdown'){
-        //Display shutdown text
-        fill(255);
-        noStroke();
-        text('Are you sure?', canvasWidth/2, canvasHeight/2, canvasWidth/2, canvasHeight/2);
       }
 
     }
@@ -260,13 +283,13 @@ let rightWing;
 let glass;
 let skyBackground;
 let moon;
-let endScreen;
 
 let heart;
 let bar;
 let chat;
 let sky;
 let shuttingDown;
+let endScreen;
 let popUp; //first pop up window in windows array, manually placed
 
 //Pop up windows for the part near the end, next to each other and manually placed
@@ -291,7 +314,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     glass = loadImage('brokenGlass.png');
     skyBackground = loadImage('skyBG.png');
     moon = loadImage('moon.png');
-    endScreen = loadImage('endScreen.png');
 
     //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
@@ -299,6 +321,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     chat = new BrowserWindow('ChatDisplay', 350, 350, canvasWidth - 190, canvasHeight - 350);
     sky = new BrowserWindow('SkyDisplay', 250, 350, canvasWidth/5, canvasHeight - 175);
     shuttingDown = new BrowserWindow('Shutdown', 300, 500, canvasWidth/2, canvasHeight/2);
+    endScreen = new BrowserWindow('Shutdown', 400, 600, canvasWidth/2, canvasHeight/2);
     
 
     //Initialises first window in the array, manually placed
@@ -492,21 +515,21 @@ if(song.currentTime() > 109.5 && song.currentTime() < 121){
 
 //Three browser windows displayed after the final glitchy part before the last chorus
 
-if(song.currentTime() > 120.2 && song.currentTime() < 121){
+if(song.currentTime() > 120.5 && song.currentTime() < 121){
   firstPlaced.display(words, vocal, drum, bass, other, counter);
   image(browserWindowX, firstPlaced.x - 45, firstPlaced.y - 65, 90 + drum/12, 90 + drum/12);
 
 
 }
 
-if(song.currentTime() > 120.4 && song.currentTime() < 121){
+if(song.currentTime() > 120.7 && song.currentTime() < 121){
   secondPlaced.display(words, vocal, drum, bass, other, counter);
   image(browserWindowX, secondPlaced.x - 45, secondPlaced.y - 65, 90 + drum/12, 90 + drum/12);
 
   
 }
 
-if(song.currentTime() > 120.6 && song.currentTime() < 121){
+if(song.currentTime() > 120.9 && song.currentTime() < 121){
   thirdPlaced.display(words, vocal, drum, bass, other, counter);
   image(browserWindowX, thirdPlaced.x - 45, thirdPlaced.y - 65, 90 + drum/12, 90 + drum/12);
   
@@ -543,7 +566,9 @@ if(song.currentTime() > 120.6 && song.currentTime() < 121){
   }
 
   if(song.currentTime() > 143){
-    image(endScreen, 0, 0);
+    //Ending browser window
+    endScreen.display(words, vocal, drum, bass, other, counter);
+
   }
 
 

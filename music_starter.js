@@ -292,6 +292,8 @@ let skyBackground;
 let moon;
 let purpleX;
 let purpleCheck;
+let powerButton;
+let finalSquare;
 
 //(Individual browser windows)
 let heart;
@@ -327,6 +329,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     moon = loadImage('moon.png');
     purpleX = loadImage('purpleBrowserX.png');
     purpleCheck = loadImage('purpleCheck.png');
+    powerButton = loadImage('powerButton.png');
+    finalSquare = loadImage('finalSquare.png');
 
     //Initialises main windows for most of the song
     heart = new BrowserWindow('HeartDisplay', 600, 800, canvasWidth/2, canvasHeight/2);
@@ -431,7 +435,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     image(glass, 390, 150);
   }
 
-  if(song.currentTime() > 48 && song.currentTime() < 85){
+  if(song.currentTime() > 48 && song.currentTime() < 86){
     //first chorus and onward up to second funky sound thing
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
@@ -456,7 +460,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 140, sky.y-120, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 100, sky.y-120, 200 + other/2, 200 + other/2);
 
   }
 
@@ -523,8 +527,9 @@ if(song.currentTime() > 108 && song.currentTime() < 109.5){
 
 if(song.currentTime() > 109.5 && song.currentTime() < 121){
   shuttingDown.display(words, vocal, drum, bass, other, counter);
-  image(purpleBrowserX, shuttingDown.x + 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
-  image(purpleCheck, shuttingDown.x - 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
+  image(powerButton, shuttingDown.x + 80, shuttingDown.y + shuttingDown.height/2, 100 + drum/7, 100 + drum/7);
+  image(purpleX, shuttingDown.x + 125, shuttingDown.y + shuttingDown.height/4.2, 50 + drum/7, 50 + drum/7);
+  image(purpleCheck, shuttingDown.x - 175, shuttingDown.y + shuttingDown.height/4.2, 50 + drum/7, 50 + drum/7);
 }
 
 
@@ -583,8 +588,9 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
   if(song.currentTime() > 143){
     //Ending browser window
     endScreen.display(words, vocal, drum, bass, other, counter);
-    image(purpleBrowserX, endScreen.x + 150, endScreen.y + endScreen.height/3, 90 + drum/7, 90 + drum/7);
-    image(purpleCheck, shuttingDown.x - 150, shuttingDown.y + shuttingDown.height/3, 90 + drum/7, 90 + drum/7);
+    image(finalSquare, endScreen.x + 80, endScreen.y + endScreen.height/2, 100 + drum/7, 100 + drum/7);
+    image(purpleX, endScreen.x + 125, endScreen.y + endScreen.height/3.7, 50 + drum/7, 50 + drum/7);
+    image(purpleCheck, endScreen.x - 175, endScreen.y + endScreen.height/3.7, 50 + drum/7, 50 + drum/7);
 
   }
 

@@ -1,5 +1,7 @@
 // ----- Browser Window class ----- //
 
+let values = [];
+
 
 
 //Browser window class
@@ -132,51 +134,54 @@ class BrowserWindow {
 
       else if (this.name == 'HeartDisplay'){
         //Adds the heart display to the window, mapped to the channels
-
-        // for loop calls drawheart Function. Bigger the base more times round the for loop
-        // pass the fuction how big you want the heart to be drawn, later in the for loop bigger the heart
-        // heart size based on scale. 
-
-
-        push()
-        scale(1)
+      
         stroke(255);
         fill(0);
         
         strokeWeight(7);
-        beginShape();
+
         
+        beginShape();
+
         vertex(this.x, this.y + this.height/2 - 50 - 10);
         bezierVertex(this.x + this.width/1.75 + vocal/4, 400 - 10, this.x + 100, this.y - this.width/2 + 50 - 10, this.x, this.y -50 - 10 ); //right side of heart
         vertex(this.x, this.y + this.height/2 - 51 - 10);
         bezierVertex(this.x - this.width/1.75 - vocal/4, 400 - 10, this.x - 100, this.y - this.width/2 + 50 - 10, this.x, this.y - 50 - 10); //left side of heart
 
         endShape();
-        pop()
+
         stroke(0);
         strokeWeight(8);
         noFill();
         line(this.x, this.y + this.height/2 - 70, this.x, this.y - 50); //fills in the middle gap
 
 
-        let yOff = this.y + other/30;
-        fill(255);
-        noStroke();
-        
-        beginShape();
-        let xOff = this.x + this.width/1.75;
+       
 
-        for(let i = this.x - this.width/5.1; i <= this.x + this.width/5; i+= 10){
-          let j = map(noise(xOff, yOff), 0, 1, 350 - bass, 550 - drum )
 
-          vertex(i, j);
-          xOff += 0.1;
+        if(song.currentTime() < 47 || song.currentTime() > 48 && song.currentTime() < 87 || song.currentTime() > 88){
+          //All the times when the wavy line shouldn't be drawn (i.e. the first and second sound effect parts)
+          let yOff = this.y + vocal/50;
+          stroke(255, 200);
+          strokeWeight(4);
+          noFill();
+          
+          beginShape();
+          vertex(this.x - this.width/3.7, canvasHeight/2 + 50);
+          let xOff = this.x + this.width/1.75;
+  
+          for(let i = this.x - this.width/4; i <= this.x + this.width/4; i+= 10){
+            let j = map(noise(xOff, yOff), 0, 1, 275 - other/2, 525)
+  
+            vertex(i, j);
+            xOff += 0.5;
+          }
+          yOff += 0.1;
+          vertex(this.x + this.width/3.7, canvasHeight/2 + 50);
+          endShape();
+
+      
         }
-        yOff += 0.5;
-        vertex(this.x + 170, this.height - 200);
-        vertex(this.x - 170, this.height - 200);
-        endShape(CLOSE);
-
 
       }
 
@@ -270,20 +275,23 @@ class BrowserWindow {
   }
 }
 
+
+
 // ----- End of Browser Window class ----- //
 
 // Declare Variables
 
 let firstRun = true;
 
+//(Images loaded in)
 let browserWindowX;
-
 let leftWing;
-let rightWing;
+let rightWing; 
 let glass;
 let skyBackground;
 let moon;
 
+//(Individual browser windows)
 let heart;
 let bar;
 let chat;
@@ -297,6 +305,7 @@ let firstPlaced;
 let secondPlaced;
 let thirdPlaced;
 
+//(Arrays)
 let windows = [];
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100

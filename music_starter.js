@@ -1,10 +1,5 @@
 // ----- Browser Window class ----- //
 
-//let values = [];
-
-
-
-//Browser window class
 class BrowserWindow {
   constructor(name, height, width, x, y){
     this.name = name;
@@ -15,6 +10,7 @@ class BrowserWindow {
     this.mainCol;
 
     if(this.name == 'Shutdown'){
+      //Chooses whether or not a window should be pink or purple
       this.pinkMode = false;
     }
     else{
@@ -51,7 +47,7 @@ class BrowserWindow {
       rect(this.x, this.y - (this.height/2), this.width + drum/10, this.height/4 + drum/10, 10, 10, 0, 0);
 
       if(this.name == 'Popup'){
-        //Makes a single button
+        //Makes a single button centred in the middle
       noFill();
       strokeWeight(1);
       rect(this.x + 3, this.y + this.height/3 , this.width/2.5 + drum/10, this.height/5 + drum/10, 10, 10, 10, 10);
@@ -84,13 +80,6 @@ class BrowserWindow {
       strokeWeight(2.5);
       line(this.x - this.width/2, this.y - this.height/1.83 - bass/12, this.x + this.width/2, this.y - this.height/1.83 - bass/12); //outline at the top
 
-      fill(this.mainCol);
-      for(let i = 0; i > 2; i++){
-        //Draw the three squares in the top right corner (WIP)
-        fill(255);
-        rect(this.x, this.y, this.width, this.height);
-      }
-
       //Specifying which windows are on the screen
 
        if(this.name == 'BarDisplay'){
@@ -99,20 +88,21 @@ class BrowserWindow {
         strokeWeight(2.5);
         line(this.x + this.width/2 + bass/12, this.y - this.height/2 - bass/12, this.x + this.width/2 + bass/12, this.y - this.height/2 - bass/12 + 50); //accentuates right side of window that overlaps
 
-        let backBarCol = color(192, 73, 209);
+        let backBarCol = color(192, 73, 209); //darker pink
         fill(backBarCol);
         noStroke();
-        //Draws the bars at the back
+        //Draws the bars at the back of each moving bar
         rect(this.x, this.y - this.height/4, this.width - 10, 20);
         rect(this.x, this.y - 10, this.width-10, 20);
         rect(this.x, this.y + this.height/7, this.width-10, 20);
         rect(this.x, this.y + this.height/3, this.width-10, 20);
 
 
-        let volBarCol = color(220, 74, 201);
+        let volBarCol = color(220, 74, 201); //lighter pink
         fill(volBarCol);
         noStroke();
 
+        //map of each channel
         let vocalVol = map(vocal, 0, 100, 0, 0.7 * this.width, true);
         let drumVol = map(drum, 0, 100, 0, 0.7 * this.width, true);
         let bassVol = map(bass, 0, 100, 0, 0.7 * this.width, true);
@@ -124,12 +114,7 @@ class BrowserWindow {
         rect(this.x, this.y + this.height/7, bassVol, 20);
         rect(this.x, this.y + this.height/3, otherVol, 20);
 
-        for(let i = 0; i > 6; i++){
-          //More accent details (wip)
-          fill(255);
-          rect(this.x + i, this.y - this.height/1.5, 20, 20);
-        }
-
+  
       }
 
       else if (this.name == 'HeartDisplay'){
@@ -143,9 +128,9 @@ class BrowserWindow {
         
         beginShape();
 
-        vertex(this.x, this.y + this.height/2 - 50 - 10);
+        vertex(this.x, this.y + this.height/2 - 50 - 10); //anchoring vertex on the right side
         bezierVertex(this.x + this.width/1.75 + vocal/4, 400 - 10, this.x + 100, this.y - this.width/2 + 50 - 10, this.x, this.y -50 - 10 ); //right side of heart
-        vertex(this.x, this.y + this.height/2 - 51 - 10);
+        vertex(this.x, this.y + this.height/2 - 51 - 10); //anchoring vertex on the left side
         bezierVertex(this.x - this.width/1.75 - vocal/4, 400 - 10, this.x - 100, this.y - this.width/2 + 50 - 10, this.x, this.y - 50 - 10); //left side of heart
 
         endShape();
@@ -153,31 +138,32 @@ class BrowserWindow {
         stroke(0);
         strokeWeight(8);
         noFill();
-        line(this.x, this.y + this.height/2 - 70, this.x, this.y - 50); //fills in the middle gap
+        line(this.x, this.y + this.height/2 - 70, this.x, this.y - 50); //fills in the middle line gap with black
 
 
        
 
 
-        if(song.currentTime() < 47 || song.currentTime() > 48 && song.currentTime() < 86 || song.currentTime() > 88){
+        if(song.currentTime() < 47 || song.currentTime() > 48 && song.currentTime() < 87 || song.currentTime() > 88){
           //All the times when the wavy line shouldn't be drawn (i.e. the first and second sound effect parts)
-          let yOff = this.y + vocal/50;
-          stroke(255, 200);
+          let yOff = this.y + vocal/50; //y position of each vertex
+          stroke(255, 200); //transparent-ish white
           strokeWeight(4);
           noFill();
           
           beginShape();
-          vertex(this.x - this.width/3.7, canvasHeight/2 + 50);
-          let xOff = this.x + this.width/1.75;
+          vertex(this.x - this.width/3.7, canvasHeight/2 + 50); //starting anchor point on the left side
+          let xOff = this.x + this.width/1.75; //x position of each vertex
   
           for(let i = this.x - this.width/4; i <= this.x + this.width/4; i+= 10){
-            let j = map(noise(xOff, yOff), 0, 1, 275 - other/2, 525)
+            //Between the left edge of the heart and right edge of the heart
+            let j = map(noise(xOff, yOff), 0, 1, 275 - other/2, 525) //map with noise calculating how far up and down the line goes
   
-            vertex(i, j);
+            vertex(i, j); //vertex at each point
             xOff += 0.5;
           }
           yOff += 0.1;
-          vertex(this.x + this.width/3.7, canvasHeight/2 + 50);
+          vertex(this.x + this.width/3.7, canvasHeight/2 + 50); //ending anchor point on the right side
           endShape();
 
       
@@ -235,25 +221,29 @@ class BrowserWindow {
         }
         
         else if(song.currentTime() > 63 && song.currentTime() < 121){
+          //Second section onwards
           fill(fourthIcon);
-          circle(this.x -this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
+          circle(this.x -this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10); //fourth icon
           fill(255);
           for(let i = 0; i < 6; i++){
+            //Square detailing, two lines
             square(this.x - this.width/8 + (i * 40), this.y - this.height/3, 10 + bass/20);
             square(this.x - this.width/8 + (i * 40), this.y - this.height/4, 10 + bass/20);
           }
 
           fill(thirdIcon);
-          circle(this.x -this.width/4.5, this.y, this.width/12 + vocal/10);
+          circle(this.x -this.width/4.5, this.y, this.width/12 + vocal/10); //third icon
           fill(255);
           for(let i = 0; i < 4; i++){
+            //Square detailing
             square(this.x - this.width/8 + (i * 40), this.y, 10 + bass/20);
           }
 
           fill(secondIcon);
-          circle(this.x - this.width/4.5, this.y + this.height/5, this.width/12 + vocal/10);
+          circle(this.x - this.width/4.5, this.y + this.height/5, this.width/12 + vocal/10); //second icon
           fill(255);
           for(let i = 0; i < 2; i++){
+            //Square detailing
             square(this.x - this.width/8 + (i * 40), this.y + this.height/5, 10 + bass/20);
 
           }
@@ -261,10 +251,17 @@ class BrowserWindow {
         }
 
         else{
+          //At the end of the song
           fill(fourthIcon);
-          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10);
+          circle(this.x - this.width/4.5, this.y - this.height/3, this.width/12 + vocal/10); //fourth icon
+          fill(255);
+          for(let i = 0; i < 5; i++){
+            //Square detailing
+            square(this.x - this.width/8.5 + (i * 40), this.y - this.height/3, this.width/12 + bass/20);
+          }
           let imgCol = color(164, 29, 179);
           fill(imgCol);
+          //Creates a square as if an image had been sent in the chat display
           square(this.x + 50, this.y + 50, this.width/1.5 + vocal/10);
     
         }
@@ -345,7 +342,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     popUp = new BrowserWindow('Popup', 200, 300, canvasWidth/2, canvasHeight/2);
     windows.unshift(popUp);
 
-    //Creates 100 windows which are randomly placed on the screen
+    //Creates 100 windows which are randomly placed on the screen within the canvas
     for(let i = 0; i < 100; i++){
       let widthRandom = random(0, 1280);
       let heightRandom = random(0, 720);
@@ -410,45 +407,56 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let wingMap = map(other, 0, 100, 0, 100);
 
   if(song.currentTime() < 13){
+    //Draws the wings 
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2  - wingMap);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2 - wingMap);
   }
-  //When the funky stuff comes on, display the glass and stop the heart movement until the music comes back.
+  
 
 
   if(song.currentTime() > 13 && song.currentTime() < 47){
-    //First section of the song, before the funky thing part
+    //First section of the song, before the funky sound part
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
   
-    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12); //Creates sky image in sky display
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2); //Moon in sky display
 
 
   }
 
   if(song.currentTime() > 47 && song.currentTime() < 48){
-    //First funky thing part
+    //First funky sound part
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
     image(glass, 390, 150);
   }
 
-  if(song.currentTime() > 48 && song.currentTime() < 86){
-    //first chorus and onward up to second funky sound thing
+  if(song.currentTime() > 48 && song.currentTime() < 63){
+    //first chorus and onward up to second funky sound part
+    bar.display(words, vocal, drum, bass, other, counter);
+    chat.display(words, vocal, drum, bass, other, counter);
+    sky.display(words, vocal, drum, bass, other, counter);
+  
+    image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12); 
+    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
+
+  }
+
+  if(song.currentTime() > 63 && song.currentTime() < 87){
+    //Only the moon changes position, but the rest needs to be redrawn
     bar.display(words, vocal, drum, bass, other, counter);
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
   
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 165, sky.y-140, 200 + other/2, 200 + other/2);
-
+    image(moon, sky.x - 100, sky.y-120, 200 + other/2, 200 + other/2); //Moon moves right and down
 
   }
 
-  if(song.currentTime() > 86 && song.currentTime() < 88){
-    //Second funky sound thing
+  if(song.currentTime() > 87 && song.currentTime() < 88){
+    //Second funky sound part
     image(leftWing, canvasWidth/2 - 400, canvasHeight/2);
     image(rightWing, canvasWidth/2 + 200, canvasHeight/2);
     image(glass, 390, 150);
@@ -526,8 +534,9 @@ if(song.currentTime() > 108 && song.currentTime() < 109.5){
 
 
 if(song.currentTime() > 109.5 && song.currentTime() < 121){
+  //Displays the shutting down window during the bridge, as well as the tick and cross in the buttons
   shuttingDown.display(words, vocal, drum, bass, other, counter);
-  image(powerButton, shuttingDown.x + 80, shuttingDown.y + shuttingDown.height/2, 100 + drum/7, 100 + drum/7);
+  image(powerButton, shuttingDown.x - 53, shuttingDown.y - 65, 100 + drum/7, 100 + drum/7);
   image(purpleX, shuttingDown.x + 125, shuttingDown.y + shuttingDown.height/4.2, 50 + drum/7, 50 + drum/7);
   image(purpleCheck, shuttingDown.x - 175, shuttingDown.y + shuttingDown.height/4.2, 50 + drum/7, 50 + drum/7);
 }
@@ -564,7 +573,7 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
     chat.display(words, vocal, drum, bass, other, counter);
     sky.display(words, vocal, drum, bass, other, counter);
     image(skyBackground, sky.x - 190, sky.y - 155, 375 + bass/12, 325 + bass/12);
-    image(moon, sky.x - 115, sky.y-115, 200 + other/2, 200 + other/2);
+    image(moon, sky.x - 50, sky.y-90, 200 + other/2, 200 + other/2); //Moon has moved even further right and down
 
   }
 
@@ -586,9 +595,9 @@ if(song.currentTime() > 120.9 && song.currentTime() < 121){
   }
 
   if(song.currentTime() > 143){
-    //Ending browser window
+    //Ending browser window + x and check marks
     endScreen.display(words, vocal, drum, bass, other, counter);
-    image(finalSquare, endScreen.x + 80, endScreen.y + endScreen.height/2, 100 + drum/7, 100 + drum/7);
+    image(finalSquare, endScreen.x - 50, endScreen.y - 65, 100 + drum/7, 100 + drum/7);
     image(purpleX, endScreen.x + 125, endScreen.y + endScreen.height/3.7, 50 + drum/7, 50 + drum/7);
     image(purpleCheck, endScreen.x - 175, endScreen.y + endScreen.height/3.7, 50 + drum/7, 50 + drum/7);
 
